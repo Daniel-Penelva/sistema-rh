@@ -4,6 +4,10 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -21,8 +25,16 @@ public class Candidato {
     @GeneratedValue
     private long codigo;
 
+    @NotEmpty
     private String rg;
+
+    @NotEmpty
+    @Size(min = 5, max = 15, message = "O nome de usuário deve ter entre 5 e 15 caracteres")
     private String nomeCandidato;
+
+    @NotEmpty
+    @NotBlank(message = "O e-mail é obrigatório")
+    @Email(message = "E-mail deve ser válido")
     private String email;
 
 }

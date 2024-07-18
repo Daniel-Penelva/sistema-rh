@@ -8,6 +8,9 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -28,9 +31,18 @@ public class Vaga implements Serializable{
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long codigo;
 
+    @NotEmpty            // Garante que o valor do campo não seja null e que, se for uma string ou uma coleção, não seja vazio.
+    @Size(min = 5, max = 15, message = "O nome de usuário deve ter entre 5 e 15 caracteres")
     private String nome;
+
+    @NotEmpty
+    @Size(max = 100, message = "Número máximo é de 100 caracteres")
     private String descricao;
+
+    @NotEmpty
     private String data;
+
+    @NotEmpty
     private String salario;
     
 }
