@@ -2,14 +2,17 @@ package com.apprh.sistema_rh.models;
 
 import java.io.Serial;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotEmpty;
-import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -44,5 +47,9 @@ public class Vaga implements Serializable{
 
     @NotEmpty
     private String salario;
+
+    // Uma Vaga para muitos candidatos
+    @OneToMany(mappedBy = "vaga", cascade = CascadeType.REMOVE)
+    private List<Candidato> candidatos = new ArrayList<>();
     
 }
