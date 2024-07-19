@@ -4,6 +4,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.apprh.sistema_rh.models.Vaga;
@@ -26,6 +27,7 @@ public class VagaController {
         return "vaga/formVaga";
     }
 
+    // Esse método cadastra vaga
     @RequestMapping(value = "/cadastrarVaga", method = RequestMethod.POST)
     public String form(@Valid Vaga vaga, BindingResult bindingResult, RedirectAttributes attributes) {
 
@@ -38,6 +40,15 @@ public class VagaController {
         attributes.addFlashAttribute("mensagem", "Vaga cadastrada com sucesso");
         return "redirect:/cadastrarVaga";
 
+    }
+
+    // Esse método lista vagas
+    @RequestMapping("/vagas")
+    public ModelAndView listaVagas() {
+        ModelAndView mv = new ModelAndView("vaga/listaVaga");
+        Iterable<Vaga> vagas = vagaRepository.findAll();
+        mv.addObject("vagas", vagas);    // Adiciona o objeto vagas ao modelo com a chave "vagas". Isso significa que na view (listaVaga) poderá acessar os dados das vagas usando essa chave.
+        return mv;                                     // Retorna o ModelAndView que será usado pelo Spring MVC para renderizar a resposta.
     }
 
 }
