@@ -77,4 +77,27 @@ public class VagaController {
         return "redirect:/vagas";                          // redirecionar o navegador para a lista de vagas, URL /vagas.
     }
 
+    
+    // ADICIONAR CANDIDATO
+	@RequestMapping(value = "/{codigo}", method = RequestMethod.POST)
+	public String detalhesVagaPost(@PathVariable("codigo") long codigo, @Valid Candidato candidato,
+			BindingResult bindingResult, RedirectAttributes attributes) {
+
+        if (bindingResult.hasErrors()) {                                                                   // Verifica se houve erros - o bindingResult contém o resultado da validação do objeto candidato.                                                            
+            attributes.addFlashAttribute("mensagem", "Verifique os campos");  // RedirectAttributes attributes - adiciona uma mensagem de erro aos atributos de redirecionamento.
+            return "redirect:/{codigo}";                                                                   // Redireciona o usuário de volta para a página da vaga, mantendo o código na URL.
+        }
+
+        if(candidatoRepository.findByRg(candidato.getRg()) != null){                                       // Verifica se já existe um candidato com o mesmo RG no repositório.
+            attributes.addFlashAttribute("mensagem_erro", "RG duplicado");    // Adiciona uma mensagem de erro aos atributos de redirecionamento se um candidato com o mesmo RG for encontrado.
+			return "redirect:/{codigo}";                                                                   // Redireciona o usuário de volta para a página da vaga se um RG duplicado for encontrado.
+        }
+
+        Vaga vaga = vagaRepository.findByCodigo(codigo);                                                   // Busca a vaga pelo código fornecido.
+        candidato.setVaga(vaga);                                                                           // Associa a vaga ao candidato.
+        candidatoRepository.save(candidato);
+        attributes.addFlashAttribute("mensagem", "Candidato adcionado com sucesso!");
+		return "redirect:/{codigo}";                                                                       // Redireciona o usuário de volta para a página da vaga após o candidato ser adicionado com sucesso.
+    }
+
 }
