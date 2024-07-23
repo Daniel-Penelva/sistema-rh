@@ -78,7 +78,7 @@ public class VagaController {
     }
 
     
-    // ADICIONAR CANDIDATO
+    // Este método adiciona um candidato a uma vaga específica, com base no código da vaga.
 	@RequestMapping(value = "/{codigo}", method = RequestMethod.POST)
 	public String detalhesVagaPost(@PathVariable("codigo") long codigo, @Valid Candidato candidato,
 			BindingResult bindingResult, RedirectAttributes attributes) {
@@ -98,6 +98,17 @@ public class VagaController {
         candidatoRepository.save(candidato);
         attributes.addFlashAttribute("mensagem", "Candidato adcionado com sucesso!");
 		return "redirect:/{codigo}";                                                                       // Redireciona o usuário de volta para a página da vaga após o candidato ser adicionado com sucesso.
+    }
+
+    // Este método deleta o candidato pelo RG
+	@RequestMapping("/deletarCandidato")
+    public String deletarCandidato(String rg) { 
+        
+        Candidato candidato = candidatoRepository.findByRg(rg);       // busca um candidato pelo RG fornecido.
+        Vaga vaga = candidato.getVaga();                              // obtém a vaga associada ao candidato encontrado.
+        String codigo = "" + vaga.getCodigo();                        // concatena uma string vazia com o código da vaga para convertê-lo em uma string. Isso é feito para preparar o código da vaga para ser usado na URL de redirecionamento.
+        candidatoRepository.delete(candidato);                        // deleta o candidato do repositório.
+        return "redirect:/" + codigo;                                 // redireciona o usuário para a URL da vaga após a deleção do candidato. A URL de redirecionamento será / seguida pelo código da vaga.
     }
 
 }
