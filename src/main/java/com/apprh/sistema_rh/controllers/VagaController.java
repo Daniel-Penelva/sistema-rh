@@ -68,4 +68,12 @@ public class VagaController {
 		return mv;
     }
 
+    // Esse método deleta vaga do repositório com base em seu código.
+    @RequestMapping("/deletarVagas")
+    public String deletarVagas(long codigo) {
+        Vaga vaga = vagaRepository.findByCodigo(codigo);   // busca uma vaga específica pelo código fornecido.
+        vagaRepository.delete(vaga);                       // deleta a vaga encontrada do repositório.
+        return "redirect:/vagas";                          // redirecionar o navegador para a lista de vagas, URL /vagas.
+    }
+
 }
