@@ -45,7 +45,7 @@ public class VagaController {
 
     }
 
-    // http://localhost:8080/vagas
+    // http://localhost:8080/listaVaga
     // Esse método lista vagas
     @RequestMapping("/vagas")
     public ModelAndView listaVagas() {
@@ -55,6 +55,7 @@ public class VagaController {
         return mv;                                     // Retorna o ModelAndView que será usado pelo Spring MVC para renderizar a resposta.
     }
 
+    // http://localhost:8080/detalhesVaga
     // Esse método busca pelo código detalhes da vaga e dos candidatos
     @RequestMapping(value = "/{codigo}", method = RequestMethod.GET)
     public ModelAndView detalhesVaga(@PathVariable("codigo") long codigo){
