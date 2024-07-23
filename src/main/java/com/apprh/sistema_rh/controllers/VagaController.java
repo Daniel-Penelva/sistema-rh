@@ -45,6 +45,7 @@ public class VagaController {
 
     }
 
+    // http://localhost:8080/vagas
     // Esse método lista vagas
     @RequestMapping("/vagas")
     public ModelAndView listaVagas() {
