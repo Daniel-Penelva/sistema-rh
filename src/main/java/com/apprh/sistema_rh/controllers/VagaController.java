@@ -29,12 +29,13 @@ public class VagaController {
         return "vaga/formVaga";
     }
 
+    // http://localhost:8080/cadastrarVaga
     // Esse método cadastra vaga
     @RequestMapping(value = "/cadastrarVaga", method = RequestMethod.POST)
     public String form(@Valid Vaga vaga, BindingResult bindingResult, RedirectAttributes attributes) {
 
-        if (bindingResult.hasErrors()) {
-            attributes.addFlashAttribute("mensagem", "Verifique os campos");
+        if (bindingResult.hasErrors()) {                                                                   // BindingResult bindingResult - este objeto é usado para verificar se houve erros de validação durante o mapeamento do formulário para o objeto Vaga.
+            attributes.addFlashAttribute("mensagem", "Verifique os campos");  // RedirectAttributes attributes - é usado para adicionar atributos de redirecionamento (flash attributes) que persistem apenas durante o redirecionamento.
             return "redirect:/cadastrarVaga";
         }
 
