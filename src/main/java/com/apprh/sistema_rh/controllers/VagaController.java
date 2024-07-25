@@ -112,4 +112,14 @@ public class VagaController {
         return "redirect:/" + codigo;                                 // redireciona o usuário para a URL da vaga após a deleção do candidato. A URL de redirecionamento será / seguida pelo código da vaga.
     }
 
+    // Este método exibe o formulário de edição de uma vaga específica, com base no código.
+    @RequestMapping(value = "/editar-vaga", method = RequestMethod.GET)
+	public ModelAndView editarVaga(long codigo) {
+        
+        Vaga vaga = vagaRepository.findByCodigo(codigo);                    // busca uma vaga específica pelo código fornecido.
+        ModelAndView mv = new ModelAndView("vaga/atualizarVaga");  // cria um novo objeto ModelAndView, especificando o nome da vista (view) que deve ser renderizada, neste caso, "vaga/atualizarVaga".
+        mv.addObject("vaga", vaga);                           // adiciona a vaga encontrada como um atributo do modelo com o nome "vaga". Isso permite que a view acesse e exiba os detalhes da vaga para edição.
+        return mv;
+    }
+
 }
