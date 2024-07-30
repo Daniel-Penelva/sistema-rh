@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="pt" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://thymeleaf.org">
+
+<head>
+<title>Sistema RH</title>
+</head>
+
+<body>
+	
+	<!-- Mensagens de Sucesso -->
+	<div class="alert alert-success alert-dismissible" role="alert" th:if="${not #strings.isEmpty(mensagem)}">  <!-- Determina se o conteúdo da div deve ser renderizado. Se a variável mensagem não estiver vazia, o conteúdo correspondente será exibido. -->
+		<span th:text="${mensagem}"></span>                                                                     <!-- Insere o valor da variável mensagem no elemento <span>, que será exibido como texto -->
+	</div>
+
+	<!-- Mensagens de Erro -->
+	<div class="alert alert-success alert-danger" role="alert" th:if="${not #strings.isEmpty(mensagem_erro)}"> <!-- Determina se o conteúdo da div deve ser renderizado. Se a variável mensagem_erro não estiver vazia, o conteúdo correspondente será exibido. -->
+		<span th:text="${mensagem_erro}"></span>                                                               <!-- Insere o valor da variável mensagem no elemento <span>, que será exibido como texto -->
+	</div>
+
+</body>
+</html>
