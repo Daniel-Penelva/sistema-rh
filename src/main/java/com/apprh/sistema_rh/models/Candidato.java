@@ -32,7 +32,7 @@ public class Candidato {
     private String rg;
 
     @NotEmpty
-    @Size(min = 5, max = 15, message = "O nome de usuário deve ter entre 5 e 15 caracteres")
+    @Size(min = 5, max = 50, message = "O nome de usuário deve ter entre 5 e 50 caracteres")
     private String nomeCandidato;
 
     @NotEmpty
