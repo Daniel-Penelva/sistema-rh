@@ -1,8 +1,13 @@
 package com.apprh.sistema_rh.models;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
@@ -36,5 +41,9 @@ public class Funcionario {
     @NotBlank(message = "O e-mail é obrigatório")
     @Email(message = "E-mail deve ser válido")
     private String email;
+
+    // Um funcionário pode ter vários dependentes
+    @OneToMany(mappedBy = "funcionario", cascade = CascadeType.REMOVE)
+    private List<Dependentes> dependentes = new ArrayList<>();
 
 }
