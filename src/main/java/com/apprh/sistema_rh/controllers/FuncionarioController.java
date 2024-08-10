@@ -16,7 +16,7 @@ public class FuncionarioController {
     private final FuncionarioRepository funcionarioRepository;
     private final DependentesRepository dependentesRepository;
 
-    // Chama o form de casdatrar funcionários
+    // http://localhost:8080/cadastrarFuncionario - Chama o form de casdatrar funcionários
     @RequestMapping(value = "/cadastrarFuncionario", method = RequestMethod.GET)
     public String form(){
         return "funcionario/formFuncionario";
