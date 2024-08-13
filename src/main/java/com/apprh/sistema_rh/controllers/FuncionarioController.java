@@ -4,11 +4,13 @@ import java.util.List;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.apprh.sistema_rh.models.Dependentes;
 import com.apprh.sistema_rh.models.Funcionario;
 import com.apprh.sistema_rh.repositories.DependentesRepository;
 import com.apprh.sistema_rh.repositories.FuncionarioRepository;
@@ -49,6 +51,18 @@ public class FuncionarioController {
         ModelAndView mv = new ModelAndView("funcionario/listaFuncionario");
         List<Funcionario> funcionarios = funcionarioRepository.findAll();
         mv.addObject("funcionarios", funcionarios);
+        return mv;
+    }
+
+    // http://localhost:8080/dependentes/{id} - Método para listar os dependentes de um funcionário específico.
+    @RequestMapping(value = "/dependentes/{id}", method = RequestMethod.GET)
+    public ModelAndView dependentes(@PathVariable("id") long id){
+        Funcionario funcionario = funcionarioRepository.findById(id);
+        ModelAndView mv = new ModelAndView("funcionario/dependentes");
+        mv.addObject("funcionarios", funcionario);
+
+        Iterable<Dependentes> dependentes = dependentesRepository.findByFuncionario(funcionario);  // busca todos os dependentes relacionados ao funcionário fornecido.
+        mv.addObject("dependentes", dependentes);
         return mv;
     }
 }
