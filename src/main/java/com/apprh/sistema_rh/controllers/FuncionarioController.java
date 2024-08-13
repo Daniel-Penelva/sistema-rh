@@ -1,9 +1,12 @@
 package com.apprh.sistema_rh.controllers;
 
+import java.util.List;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.apprh.sistema_rh.models.Funcionario;
@@ -38,5 +41,14 @@ public class FuncionarioController {
         funcionarioRepository.save(funcionario);
         attributes.addFlashAttribute("mensagem", "Funcionário cadastrado com sucesso!");
 		return "redirect:/cadastrarFuncionario";
+    }
+
+    // http://localhost:8080/funcionarios - Método para listar funcionário
+    @RequestMapping("/funcionarios")
+    public ModelAndView listaFuncionarios(){
+        ModelAndView mv = new ModelAndView("funcionario/listaFuncionario");
+        List<Funcionario> funcionarios = funcionarioRepository.findAll();
+        mv.addObject("funcionarios", funcionarios);
+        return mv;
     }
 }
