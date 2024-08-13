@@ -65,4 +65,34 @@ public class FuncionarioController {
         mv.addObject("dependentes", dependentes);
         return mv;
     }
+
+    // http://localhost:8080/dependentes/{id} - Método é para processar a submissão de um formulário de adição de dependente.
+    @RequestMapping(value = "/dependentes/{id}", method = RequestMethod.POST)
+    public String dependentesPost(@PathVariable("id") long id, Dependentes dependentes, BindingResult bindingResult,
+    RedirectAttributes attributes){
+
+
+        if(bindingResult.hasErrors()) {                                                                     // Verifica se há erros de validação no objeto dependentes.
+			attributes.addFlashAttribute("mensagem", "Verifique os campos!");  // Adiciona uma mensagem que será exibida ao usuário após o redirecionamento.
+			return "redirect:/dependentes/{id}";
+		}
+		if(dependentesRepository.findByCpf(dependentes.getCpf()) != null) {                                // Verifica se já existe um dependente com o mesmo CPF no banco de dados. Se existir, uma mensagem de erro é adicionada aos atributos de redirecionamento, e o usuário é redirecionado de volta.
+			attributes.addFlashAttribute("mensagem_erro", "CPF duplicado");
+			return "redirect:/dependentes/{id}";
+		}
+
+        Funcionario funcionario = funcionarioRepository.findById(id);
+        dependentes.setFuncionario(funcionario);
+        dependentesRepository.save(dependentes);
+        attributes.addFlashAttribute("mensagem", "Dependente adicionado com sucesso");
+		return "redirect:/dependentes/{id}";
+    }
 }
+
+
+/*Lembrete:
+ * BindingResult bindingResult: Este objeto captura possíveis erros de validação que possam ocorrer durante o processo de binding dos dados do 
+ * formulário ao objeto Dependentes.
+ * 
+ * RedirectAttributes attributes: Usado para adicionar atributos que serão passados em um redirecionamento, como mensagens de erro ou sucesso.
+*/
