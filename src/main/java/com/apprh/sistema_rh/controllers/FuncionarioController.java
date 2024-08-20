@@ -116,6 +116,20 @@ public class FuncionarioController {
         String id = "" + idLong;
 		return "redirect:/dependentes/" + id;
     }
+
+    // http://localhost:8080/deletarDependente - Método para deletar um dependente associado ao funcionario
+    @RequestMapping("/deletarDependente")
+    public String deletarDependente(String cpf){
+        
+        Dependentes dependente = dependentesRepository.findByCpf(cpf);
+
+        Funcionario funcionario = dependente.getFuncionario();
+        String codigo = "" + funcionario.getId();
+
+        dependentesRepository.delete(dependente);
+        return "redirect:/dependentes/" + codigo;
+    }
+
 }
 
 
