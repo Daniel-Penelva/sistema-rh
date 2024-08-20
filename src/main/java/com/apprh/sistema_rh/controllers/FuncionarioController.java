@@ -87,6 +87,14 @@ public class FuncionarioController {
         attributes.addFlashAttribute("mensagem", "Dependente adicionado com sucesso");
 		return "redirect:/dependentes/{id}";
     }
+
+    // http://localhost:8080/deletarFuncionario - Método para deletar um funcionário por id
+    @RequestMapping("/deletarFuncionario")
+    public String deletarFuncionario(long id){
+        Funcionario funcionario = funcionarioRepository.findById(id);
+        funcionarioRepository.delete(funcionario);
+        return "redirect:/funcionarios";
+    }
 }
 
 
