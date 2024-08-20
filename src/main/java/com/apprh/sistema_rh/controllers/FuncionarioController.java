@@ -95,6 +95,15 @@ public class FuncionarioController {
         funcionarioRepository.delete(funcionario);
         return "redirect:/funcionarios";
     }
+
+    // Método que exibe a página de edição de funcionário
+    @RequestMapping(value="/editar-funcionario", method = RequestMethod.GET)
+    public ModelAndView editarFuncionario(long id){
+        Funcionario funcionario = funcionarioRepository.findById(id);
+        ModelAndView mv = new ModelAndView("funcionario/update-funcionario");
+        mv.addObject("funcionario", funcionario);
+        return mv;
+    }
 }
 
 
