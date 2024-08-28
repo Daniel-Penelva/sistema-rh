@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang=”pt-br” xmlns:th="http://thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+
+<head>
+
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<title>Sistema de RH</title>
+
+	<!-- Via CDN CSS Bootstrap -->
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+
+	<!-- Bootstrap para testes, apagar depois que configurar thymeleaf-->
+	<link href="vaga/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+</head>
+<body>
+
+    <!-- Cabeçalho e Navegação -->
+    <header>
+		<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+			<div class="container-fluid">
+				<a class="navbar-brand" href="/">App RH</a>
+				<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+					aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+					<span class="navbar-toggler-icon"></span>
+				</button>
+				<div class="collapse navbar-collapse" id="navbarNav">
+					<ul class="navbar-nav">
+						<li class="nav-item"><a class="nav-link active" aria-current="page" href="/">Home</a></li>
+						<li class="nav-item"><a class="nav-link" href="/funcionarios">Funcionários</a></li>
+						<li class="nav-item"><a class="nav-link" href="/cadastrarFuncionario">Cadastrar Funcionário</a></li>
+						<li class="nav-item"><a class="nav-link" href="/vagas">Listar Vagas</a></li>
+						<li class="nav-item"><a class="nav-link" href="/cadastrarVaga">Cadastrar Vaga</a></li>
+					</ul>
+				</div>
+			</div>
+		</nav>
+	</header>
+
+	<!-- Conteúdo Principal -->
+    <div class="container">
+
+		<h1>Informações do funcionário:</h1>
+		<div class="container" th:each="funcionario : ${funcionarios}">
+
+			<br>
+			<p>
+				<b>Nome:</b> <span th:text="${funcionario.nome}"></span>
+			</p>
+			<p>
+				<b>Data de nascimento:</b> <span th:text="${funcionario.data}"></span>
+			</p>
+			<p>
+				<b>E-mail:</b> <span th:text="${funcionario.email}"></span>
+			</p>
+
+
+			<br> <br>
+			<h2>Cadastrar dependentes</h2>
+
+			<form method="post" th:object="${dependente}">
+				<div class="form-group">
+					<div class="row">
+						<div class="col">
+							<label for=""><b>Nome:</b></label> 
+                            <input type="text" value="" name="nome" class="form-control" placeholder="Nome Completo" required /> <!-- o valor "nome" da propriedade name tem que ser o mesmo valor do atributo "nome" da Entidade Dependentes-->
+						</div>
+
+						<div class="col">
+							<label for=""><b>CPF:</b></label>
+                            <input type="text" value="" name="cpf" placeholder="Somente números, sem traçõs ou pontos." class="validate form-control" required />
+						</div>
+
+						<br> <br>
+						<div class="col">
+							<div class="form-group">
+								<label for=""><b>Data de nascimento:</b></label> 
+                                <input type="date" value="" name="dataNascimento" class="form-control" required /> 
+                                <small class="form-text text-muted"><i>*Dia/Mês/Ano.</i></small>
+							</div>
+						</div>
+					</div>
+
+					<button type="submit" class="btn btn-success">Adicionar Dependente</button>
+			</form>
+		</div>
+
+		<th:block th:include="mensagemValidacao"></th:block>
+
+		<br><br>
+		<h2>Dependentes:</h2>
+		<br>
+
+		<table class="table table-hover table-responsive w-auto table-striped">
+			<thead>
+				<tr>
+					<th scope="col">Nome do dependente:</th>
+					<th scope="col">CPF:</th>
+					<th scope="col">Data de nascimento:</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="dependente : ${dependentes}">
+					<td><span th:text="${dependente.nome}"></span></td>
+					<td><span th:text="${dependente.cpf}"></span></td>
+					<td><span th:text="${dependente.dataNascimento}"></span></td>
+					<td>
+                        <a class="waves-effect waves-light btn-small" th:href="${(#mvc.url('FC#deletarDependente').arg(0, dependente.cpf)).build()}">
+                            <button type="button" class="btn btn-danger">Excluir</button>
+                        </a>
+                    </td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+
+
+    <div style="height: 100px;"></div>
+
+<!-- Rodapé -->
+<div class="footer-copyright fixed-bottom bg-dark text-center py-3">
+    <span class="text-light align-middle">| Sistema de RH | - © 2024 Copyright: Daniel Penelva de Andrade</span>
+</div>
+
+<!-- Via CDN Bootstrap JavaScript -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+</body>
+</html>
