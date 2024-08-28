@@ -29,6 +29,7 @@ public class VagaController {
         return "vaga/formVaga";
     }
 
+    // http://localhost:8080/
     // http://localhost:8080/cadastrarVaga
     // Esse método cadastra vaga
     @RequestMapping(value = "/cadastrarVaga", method = RequestMethod.POST)
