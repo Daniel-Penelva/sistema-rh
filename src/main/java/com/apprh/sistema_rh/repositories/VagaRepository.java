@@ -1,6 +1,7 @@
 package com.apprh.sistema_rh.repositories;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import com.apprh.sistema_rh.models.Vaga;
@@ -12,5 +13,9 @@ public interface VagaRepository extends JpaRepository<Vaga, Long> {
     Vaga findByCodigo(long codigo);
 
     List<Vaga> findByNome(String nome);
+
+    // Método para buscar vagas
+    @Query(value = "SELECT u FROM Vaga u WHERE u.nomeVaga LIKE %?1%")
+    List<Vaga> findByNomeVagas(String nomeVaga);
 
 }

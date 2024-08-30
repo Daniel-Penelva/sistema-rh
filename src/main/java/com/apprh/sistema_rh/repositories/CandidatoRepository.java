@@ -3,6 +3,7 @@ package com.apprh.sistema_rh.repositories;
 import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import com.apprh.sistema_rh.models.Candidato;
@@ -16,7 +17,9 @@ public interface CandidatoRepository extends JpaRepository<Candidato, Long> {
     Candidato findByRg(String rg);
 
     Candidato findById(long id);
-
-    List<Candidato> findByNomeCandidato(String nomeCandidato);
+    
+    // Método para buscar candidatos
+    @Query(value = "SELECT u FROM Candidato u WHERE u.nomeCandidato LIKE %?1%")
+    List<Candidato> findByNomeCandidatos(String nomeCandidato);
 
 }

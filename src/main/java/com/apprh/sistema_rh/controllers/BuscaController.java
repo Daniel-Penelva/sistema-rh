@@ -35,18 +35,18 @@ public class BuscaController {
         String mensagem = "Resultados da busca por " + buscar;
 
         if (nome.equals("nomefuncionario")) {
-            mv.addObject("funcionarios", funcionarioRepository.findByNome(buscar));
+            mv.addObject("funcionarios", funcionarioRepository.findByNomeFuncionarios(buscar));
         } else if (nome.equals("nomedependente")) {
-            mv.addObject("dependentes", dependentesRepository.findByNome(buscar));
+            mv.addObject("dependentes", dependentesRepository.findByNomeDependentes(buscar));
         } else if (nome.equals("nomecandidato")) {
-            mv.addObject("candidatos", candidatoRepository.findByNomeCandidato(buscar));
+            mv.addObject("candidatos", candidatoRepository.findByNomeCandidatos(buscar));
         } else if (nome.equals("titulovaga")) {
-            mv.addObject("vagas", vagaRepository.findByNome(nome));
+            mv.addObject("vagas", vagaRepository.findByNomeVagas(buscar));
         } else {
-            mv.addObject("funcionarios", funcionarioRepository.findByNome(buscar));
-            mv.addObject("dependentes", dependentesRepository.findByNome(buscar));
-            mv.addObject("candidatos", candidatoRepository.findByNomeCandidato(buscar));
-            mv.addObject("vagas", vagaRepository.findByNome(nome));
+            mv.addObject("funcionarios", funcionarioRepository.findByNomeFuncionarios(buscar));
+            mv.addObject("dependentes", dependentesRepository.findByNomeDependentes(buscar));
+            mv.addObject("candidatos", candidatoRepository.findByNomeCandidatos(buscar));
+            mv.addObject("vagas", vagaRepository.findByNomeVagas(buscar));
         }
 
         mv.addObject("mensagem", mensagem);
