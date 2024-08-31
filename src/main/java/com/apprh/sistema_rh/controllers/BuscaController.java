@@ -34,6 +34,10 @@ public class BuscaController {
         ModelAndView mv = new ModelAndView("index");
         String mensagem = "Resultados da busca por " + buscar;
 
+        // Adicione logs para verificar os valores recebidos
+        System.out.println("Buscar: " + buscar);
+        System.out.println("Nome: " + nome);
+
         if (nome.equals("nomefuncionario")) {
             mv.addObject("funcionarios", funcionarioRepository.findByNomeFuncionarios(buscar));
         } else if (nome.equals("nomedependente")) {

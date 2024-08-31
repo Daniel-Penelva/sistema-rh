@@ -21,6 +21,6 @@ public interface DependentesRepository extends JpaRepository<Dependentes, Long> 
     List<Dependentes> findByNome(String nome);
 
     // Método para buscar dependentes
-    @Query(value = "SELECT u FROM Dependentes u WHERE u.nomeDependente LIKE %?1%")
-    List<Dependentes> findByNomeDependentes(String nomeDependente);  
+    @Query(value = "SELECT u FROM Dependentes u WHERE u.nome LIKE %?1%")
+    List<Dependentes> findByNomeDependentes(String nome);  
 }

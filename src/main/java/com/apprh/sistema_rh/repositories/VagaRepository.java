@@ -15,7 +15,7 @@ public interface VagaRepository extends JpaRepository<Vaga, Long> {
     List<Vaga> findByNome(String nome);
 
     // Método para buscar vagas
-    @Query(value = "SELECT u FROM Vaga u WHERE u.nomeVaga LIKE %?1%")
-    List<Vaga> findByNomeVagas(String nomeVaga);
+    @Query(value = "SELECT u FROM Vaga u WHERE u.nome LIKE %?1%")
+    List<Vaga> findByNomeVagas(String nome);
 
 }

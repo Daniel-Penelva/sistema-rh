@@ -16,6 +16,6 @@ public interface FuncionarioRepository extends JpaRepository<Funcionario, Long> 
     Funcionario findByNome(String nome);
 
     // Método para buscar funcionários
-    @Query(value = "SELECT u FROM Funcionario u WHERE u.nomeFuncionario LIKE %?1%")
-    List<Funcionario> findByNomeFuncionarios(String nomeFuncionario);
+    @Query(value = "SELECT u FROM Funcionario u WHERE u.nome LIKE %?1%")
+    List<Funcionario> findByNomeFuncionarios(String nome);
 }
